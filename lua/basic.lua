@@ -1,5 +1,6 @@
 vim.opt.foldmethod = 'indent'
-vim.cmd("colorscheme wildcharm")
+vim.cmd("colorscheme torte")
+
 vim.opt.fillchars = "fold: "
 vim.opt.foldtext = "getline(v:foldstart)"
 vim.opt.wrap = false
@@ -94,6 +95,9 @@ vim.api.nvim_set_keymap('i','<Tab>y', '%', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>h', '?', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>k', '_', { noremap = true, silent = true })
     
+vim.api.nvim_set_keymap('i','-r', 'R', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i','-e', 'E', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i','-w', 'W', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','-a', 'A', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','-q', 'Q', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','-b', 'B', { noremap = true, silent = true })

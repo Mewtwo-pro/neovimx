@@ -169,3 +169,4 @@ function _G.git_command()
     _G.local_switch = "done"
   end
 end
+    
