@@ -51,8 +51,9 @@ function _G.get_search_line()
     get_search_prev()
    
 end
-vim.api.nvim_set_keymap("n", "j", ":lua _G.input_buscador()<CR>" ,{ noremap = true, silent= true})
-vim.api.nvim_set_keymap("v", "j", "<Esc>:lua _G.input_buscador()<CR>" ,{ noremap = true, silent= true})
+    
+vim.api.nvim_set_keymap("n", "j", "ma:lua _G.input_buscador()<CR>" ,{ noremap = true, silent= true})
+vim.api.nvim_set_keymap("v", "j", "<Esc>ma:lua _G.input_buscador()<CR>" ,{ noremap = true, silent= true})
 
 function _G.search_current()
     vim.api.nvim_set_keymap("n", "<BS>", ":lua _G.get_search_next()<CR>", { noremap = true, silent = true })
@@ -60,7 +61,7 @@ function _G.search_current()
     vim.api.nvim_set_keymap("n", "<CR>", ":lua replaze_palabra()<CR>", { noremap = true, silent = true })
     print("buscando : " .. pal_buscar)
 end   
---vim.api.nvim_set_keymap("n", "c", ":lua _G.search_current()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "w", "<Esc>ma:lua _G.search_current()<CR>", { noremap = true, silent = true })
 function _G.get_search_prev()
     vim.fn.feedkeys("?\\c" .. vim.fn.escape(pal_buscar, "/\\") .. "\n", "n")
 end
@@ -99,10 +100,10 @@ function PrintVisualSelection()
   local selection = table.concat(lines, "\n")
   pal_buscar = selection
   vim.fn.feedkeys("/" .. pal_buscar .. "\n", "n")
+  _G.search_current() 
 end
 
--- Crear un mapeo para usarlo en modo visual
---vim.api.nvim_set_keymap("v", "a", ":<C-u>lua PrintVisualSelection()<CR>", { noremap = true })
+vim.api.nvim_set_keymap("v", "v", "<Esc>ma:lua PrintVisualSelection()<CR>", { noremap = true })
 --vim.api.nvim_set_keymap("v", "m", "<Esc>:lua _G.auto_search_line()<CR>", { noremap = true, silent = true })
 --vim.api.nvim_set_keymap("v", "o", "<Esc>ggVG", { noremap = true, silent = true })
     

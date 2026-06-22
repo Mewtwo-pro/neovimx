@@ -1,0 +1,18 @@
+{
+    "python": {
+        "cmd": "./venv/bin/python auto_click.py",
+        "play": "./programa",
+        "path": "/home/manuel/Documents/pythonApps/autoMove"
+    },
+    "sfml": {
+        "path": "/home/manuel/Documents/cppApps/animation/marker",
+        "play": "./programa",
+        "cmd": "g++ main.cpp -o programa -lsfml-graphics -lsfml-window -lsfml-system"
+    },
+    "current": "java",
+    "java": {
+        "path": "/home/manuel/Documents/javaProyect/mysql",
+        "play": "java -cp .:mysql-connector-j-9.6.0.jar conexion_pokemon",
+        "cmd": "javac -cp mysql-connector-j-9.6.0.jar conexion_pokemon.java"
+    }
+}

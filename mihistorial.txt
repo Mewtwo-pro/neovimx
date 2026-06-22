@@ -1,0 +1,4 @@
+C:/Users/dsi/Documents/tommcat/index.html
+C:\Users\dsi\AppData\Local\nvim\lua\basic.lua
+C:/Users/dsi/AppData/Local/nvim/mihistorial.txt
+C:\Users\dsi\AppData\Local\nvim\init.lua

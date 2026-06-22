@@ -1,7 +1,6 @@
 vim.opt.foldmethod = 'indent'
-vim.cmd("colorscheme wildcharm")
 vim.opt.fillchars = "fold: "
-sdsvim.opt.foldtext = "getline(v:foldstart)"
+vim.opt.foldtext = "getline(v:foldstart)"
 vim.opt.wrap = false
 local indent_cache = ""
 function CaptureIndent()
@@ -14,18 +13,28 @@ vim.opt.tabstop = 4      -- número de espacios que representa un tab
 vim.opt.shiftwidth = 4   -- número de espacios para cada nivel de indentación
 vim.opt.expandtab = true -- convierte tabs en espacios
 vim.opt.softtabstop = 4  -- número de espacios al presionar <Tab>
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true 
 -- Aplica la indentación capturada a la línea actual
 function ApplyIndent()
-  local line = vim.api.nvim_get_current_line()
-  local new_line = indent_cache .. line:gsub("^%s*", "")
-  vim.api.nvim_set_current_line(new_line)
+    local line = vim.api.nvim_get_current_line()
+    local new_line = indent_cache .. line:gsub("^%s*", "")
+    vim.api.nvim_set_current_line(new_line)
 end 
+vim.keymap.set('t', ';', [[<C-\><C-n>]], {noremap = true})
+vim.keymap.set('n', 'l', function()
+    local col = vim.fn.virtcol('.')
+    local ancho = vim.api.nvim_win_get_width(0)
 
+    vim.fn.winrestview({
+        leftcol = math.max(0, col - math.floor(ancho / 2))
+    })
+end, { desc = "Centrar cursor horizontalmente" })
+vim.api.nvim_set_keymap('n','gd', 'D', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n','gs', 'd^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n','y', 'b', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n','a', 'i', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n','gh', 'G', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n','gh', 'G0', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n','i', 'v', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v','n', '<Esc>:q!<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i',';', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'g<Space>', ':', { noremap = true})
 vim.api.nvim_set_keymap('n','q', 'zo', { noremap = true, silent = true })
@@ -33,7 +42,7 @@ vim.api.nvim_set_keymap('n','n', 'viw', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v','q', '<Esc>zR', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n','z', 'zc', {noremap = true, silent = true })
 vim.api.nvim_set_keymap('v','z', '<Esc>zM', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v','c', '<Esc>:q!<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v','n', '<Esc>:q!<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'm', '<C-w>w', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'm', '<DEL>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v','b', '<Esc>:tabnew<CR>', { noremap = true, silent = true })
@@ -57,8 +66,8 @@ vim.api.nvim_set_keymap('n', 'k', '<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 's', '<Esc>^', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'd', '<Esc>$', { noremap = true, silent = true })
 vim.keymap.set("n", "<BackSpace>", "v", { noremap = true, silent = true })
-vim.keymap.set("i", "<Tab><Space>", "<Esc>:call append(line('.'), repeat(' ', indent('.')))<CR>ja<Tab>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 's', ':w!<CR>', { noremap = true, silent = true })
+vim.keymap.set("i", "<Tab><Space>", "<Esc>^:call append(line('.'), repeat(' ', indent('.')))<CR>ja<Tab>", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', 's', ':w!<CR>', { noremap = true, silent = true })
 vim.keymap.set("v", "p", ">gv", { noremap = true, silent = true })
 vim.keymap.set("v","l", "<gv", { noremap = true, silent = true })
  
@@ -84,33 +93,25 @@ vim.api.nvim_set_keymap('i','<Tab>n', '\\', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>m', '|', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>b', '!', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>p', '[]<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i','<Tab>o', '@', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i','<Tab>oa', '@', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i','<Tab>om','#', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>u', ';', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>l', "''<Left>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i','<Tab>g', '{}<Left>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i','<Tab>q', '{}<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>j', '``<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i','<Tab>q', '#', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('i','<Tab>g', '<Esc>vUa', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>y', '%', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i','<Tab>h', '?', { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap('i','<Tab>k', '_', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('i','-', '<Esc>vUa', { noremap = true, silent = true })
+    
 vim.keymap.set('n', '<BS>', 'u', { noremap = true, desc = 'Deshacer con Backspace' })
 vim.keymap.set('n', '<Space>', '<C-r>', { noremap = true, desc = 'Rehacer con Space' })
--- modal 
-local function reset_default()
-  vim.keymap.set('n', '<BS>', 'u', { noremap = true, desc = 'Deshacer con Backspace' })
-  vim.keymap.set('n', '<Space>', '<C-r>', { noremap = true, desc = 'Rehacer con Space' })
-  print("reset")
-end
 
-vim.api.nvim_set_keymap("v", "<Space>", "<Esc><C-d>v", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<BS>", "<Esc><C-u>v", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Space>", "<Esc><C-d>0v", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<BS>", "<Esc><C-u>0v", { noremap = true, silent = true })
     
-vim.keymap.set({'n', 'v'}, ';', function()
-  reset_default()
-end, { noremap = true, silent = true, desc = 'Ejecutar reset_default' })
-
 -- 1. Comando para copiar la ruta completa del archivo actual
 vim.api.nvim_create_user_command('CpPath', function()
   local path = vim.fn.expand('%:p')
@@ -123,5 +124,118 @@ vim.api.nvim_create_user_command('SelectAll', function()
   -- normal! ggVG equivale a ir al principio y seleccionar hasta el final
   vim.cmd('normal! ggVG')
 end, {})
-vim.api.nvim_command('cabbrev copypath CpPath')
-vim.api.nvim_command('cabbrev selectall SelectAll')
+    
+local function reset_number_mode()
+  -- Lista de teclas que mapeamos
+  local keys = {'l', 'k', 'j', 'p', 'o', 'u', 'n', 'm', 'b', 'g', 'a'}
+  for _, key in ipairs(keys) do
+    pcall(vim.keymap.del, 'i', key, { buffer = true })
+  end
+  print("Salio modo numero")
+end
+
+local function enable_number_mode()
+  -- Mapeos locales al buffer actual (buffer = true)
+  local mappings = {
+    l = '1', k = '2', j = '3', p = '4', o = '5',
+    u = '6', n = '7', m = '8', b = '9', g = '0'
+  }
+
+  for key, value in pairs(mappings) do
+    vim.keymap.set('i', key, value, { buffer = true })
+  end
+
+  -- La tecla 'a' sale del modo y restaura el comportamiento original
+  vim.keymap.set('i', 'a', function()
+    reset_number_mode()
+  end, { buffer = true, desc = 'Salir de modo numero' })
+
+  print("Modo numero activado")
+end
+
+-- Atajo para activar el modo
+vim.keymap.set('i', '<Tab><BS>', enable_number_mode, { desc = 'Activar modo numero' })    
+    
+local caps_mode = false
+vim.keymap.set("i", "<Tab>-", function()
+    if caps_mode == true then
+       caps_mode = false 
+       print("mayuscula false")
+    else 
+       caps_mode = true 
+       print("mayuscula true")
+    end
+end, { expr = true })
+
+for c in ("abcdefghijklmnopqrstuvwxyz"):gmatch(".") do
+    vim.keymap.set("i", c, function()
+        if caps_mode then
+            return c:upper()
+        end
+        return c
+    end, { expr = true })
+end
+ vim.keymap.set('n', 's', function()
+  vim.cmd('write')
+
+  local current_file = vim.fn.expand('%:p')
+  if current_file == '' then
+    return
+  end
+
+  local history_file = vim.fn.stdpath('config') .. '/mihistorial.txt'
+
+  local history = {}
+  if vim.fn.filereadable(history_file) == 1 then
+    history = vim.fn.readfile(history_file)
+  end
+
+  -- Verificar si ya existe
+  if not vim.tbl_contains(history, current_file) then
+    vim.fn.writefile({ current_file }, history_file, 'a')
+    print('Archivo guardado y ruta registrada.')
+  else
+    print('Archivo guardado.')
+  end
+end, { desc = 'Guardar archivo y registrar en historial' })   
+-- Atajo para leer el historial y buscar con la interfaz nativa de Neovim
+vim.keymap.set('v', 'k', function()
+  -- 1. Obtener la ruta de 'mihistorial.txt'
+  local config_path = vim.fn.stdpath('config')
+  local history_file = config_path .. '/mihistorial.txt'
+
+  -- 2. Leer las rutas del archivo
+  local lines = {}
+  local f = io.open(history_file, 'r')
+  if f then
+    for line in f:lines() do
+      if line ~= '' then
+        table.insert(lines, line)
+      end
+    end
+    f:close()
+  else
+    print('El historial está vacío o no se ha creado aún.')
+    return
+  end
+
+  -- 3. Invertir el orden para ver lo más reciente primero
+  local reversed_lines = {}
+  for i = #lines, 1, -1 do
+    table.insert(reversed_lines, lines[i])
+  end
+
+  -- 4. Mostrar el buscador nativo
+  vim.ui.select(reversed_lines, {
+    prompt = 'Selecciona una ruta del historial:',
+    -- Esta función define cómo se formatea cada línea en el menú (mostramos la ruta completa)
+    format_item = function(item)
+      return item
+    end,
+  }, function(choice)
+    -- 5. Acción al aceptar (si se seleccionó algo)
+    if choice then
+      vim.cmd('edit ' .. vim.fn.fnameescape(choice))
+    end
+  end)
+end, { desc = 'Buscar en el historial de rutas (Nativo)' })
