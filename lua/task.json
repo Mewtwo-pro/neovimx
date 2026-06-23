@@ -1,0 +1,18 @@
+{
+    "sfml": {
+        "path": "/home/manuel/Documents/cppApps/animation/verb",
+        "play": "./programa",
+        "cmd": "g++ main.cpp -o programa -lsfml-graphics -lsfml-window -lsfml-system"
+    },
+    "current": "sfml",
+    "java": {
+        "path": "/home/manuel/Documents/javaProyect/mysql",
+        "play": "java -cp .:mysql-connector-j-9.6.0.jar conexion_pokemon",
+        "cmd": "javac -cp mysql-connector-j-9.6.0.jar conexion_pokemon.java"
+    },
+    "python": {
+        "path": "/home/manuel/Documents/pythonApps/autoMove",
+        "cmd": "", 
+        "play": "./venv/bin/python auto_click.py"
+    }
+}
