@@ -1,0 +1,26 @@
+require ('basic')
+require ('linea_flash')
+require ('explorer')
+require ('autocomplete')
+require ('fzf_config')
+require ('auto_comando')
+require ('buscar')
+require ('git_net')
+require ('task')    
+return require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-buffer'
+    use {
+    "ibhagwan/fzf-lua",
+    requires = { "nvim-tree/nvim-web-devicons" }
+    }
+    use {
+      "folke/tokyonight.nvim",
+      config = function()
+        require("tokyonight").setup({ style = "day" })
+        vim.cmd.colorscheme("tokyonight")
+      end
+    }
+end)
+
