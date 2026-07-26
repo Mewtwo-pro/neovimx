@@ -1,0 +1,1 @@
+{"play":"./mvnw spring-boot:run","path":"/home/manuel/Documents/javaProyect/springBoot/demo","cmd":"pkill -f 'spring-boot:run'"}
