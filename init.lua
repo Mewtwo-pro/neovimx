@@ -2,12 +2,6 @@ vim.g.gruvbox_material_background = "medium"
 vim.cmd.colorscheme("gruvbox-material")
 vim.opt.termguicolors = true
 
-vim.cmd([[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight NormalNC guibg=NONE ctermbg=NONE
-  highlight SignColumn guibg=NONE ctermbg=NONE
-  highlight EndOfBuffer guibg=NONE ctermbg=NONE
-]])
 require ('basic')
 require ('linea_flash')
 require ('explorer')
