@@ -1,0 +1,5 @@
+:let @a = system("sed -n 's/^[[:space:]]*float[[:space:]]\\+\\([[:alnum:]_]\\+\\)[[:space:]]*;$/\\1/p'", getline("'<","'>"))
+
+:let names = split(getreg('a'), "\n") | let lines = getline("'<", "'>") | for i in range(len(names)) | let lines[i] = substitute(lines[i], '^\s*', '\0' . names[i] . ' ', '') | endfor | call setline(line("'<"), lines)
+    
+:let names = split(getreg('a'), "\n") | let lines = getline("'<", "'>") | for i in range(len(names)) | let lines[i] = substitute(lines[i], '^\s*', '\0kBody->' . names[i] . ' = ', '') | endfor | call setline(line("'<"), lines)
